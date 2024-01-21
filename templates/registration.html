@@ -2,22 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
     <center>
-        <h1>User Registration</h1>
-        <form  method="POST">
-             {% csrf_token %}
-             {{ UFO.as_p }}
-             {{ PFO.as_p }}
-             
+        <h1>registration form</h1>
 
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-             <input type="sumbit" value="Register">
+                {{ufo.as_p}}
+                {{pfo.as_p}}
+            <input type="submit" value="register">
         </form>
     </center>
-
 </body>
 </html>
