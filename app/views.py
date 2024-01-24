@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
-# Create your views here.
-
 from app.forms import *
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 def registration(request):
     ufo=UserForm()
     pfo=ProfileForm()
@@ -19,7 +17,6 @@ def registration(request):
             pw=ufd.cleaned_data['password']
             MUFDO.set_password(pw)
             MUFDO.save()
-
             MPFDO=pfd.save(commit=False)
             MPFDO.username=MUFDO
             MPFDO.save()
@@ -48,3 +45,14 @@ def user_login(request):
         else:
             return HttpResponse('u r not an authenticated user')
     return render(request,'user_login.html')
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+@login_required
+def Display_Profile(request):
+    un=request.session.get('username')
+    UO=User.objects.get(username=un)
+    PO=Profile.objects.get(username=UO)
+    d={'UO':UO,'PO':PO}
+    return render(request,'Display_Profile.html',d)

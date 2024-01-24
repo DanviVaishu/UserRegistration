@@ -24,4 +24,6 @@ urlpatterns = [
     path('registration/',registration,name= 'registration'),
     path('home/',home,name='home'),
     path('user_login/',user_login,name='user_login'),
+    path('user_logout/',user_logout,name='user_logout'),
+    path('Display_Profile',Display_Profile,name='Display_Profile'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
