@@ -66,3 +66,19 @@ def change_password(request):
         UO.save()
         return HttpResponse('Password changed Successfully')
     return render(request,'change_password.html')
+
+def reset_password(request):
+    if request.method=='POST':
+        username=request.POST['un']
+        password=request.POST['pw']
+
+        LUO=User.objects.filter(username=username)
+        if LUO:
+            UO=LUO[0]
+            UO.set_password(password)
+            UO.save()
+            return HttpResponse('reset is done')
+        else:
+            return HttpResponse('U r Username is not in our DataBase')
+
+    return render(request,'reset_password.html')
